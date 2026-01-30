@@ -8,7 +8,6 @@ RUN apt-get update && apt-get install -y \
     bat \
     build-essential \
     ca-certificates \
-    cargo \
     curl \
     fd-find \
     git \
@@ -22,6 +21,7 @@ RUN apt-get update && apt-get install -y \
     sudo \
     tree \
     unzip \
+    zsh \
     && rm -rf "/var/lib/apt/lists/*"
 
 # Update Packages
@@ -48,6 +48,24 @@ RUN uv tool install specify-cli --from git+https://github.com/github/spec-kit.gi
 # Install Starship
 RUN curl -sS https://starship.rs/install.sh | sh -s -- --yes
 RUN echo 'eval "$(/usr/local/bin/starship init bash)"' >> /home/ubuntu/.bashrc
+
+# Install Rust
+ENV CARGO_HOME="/home/ubuntu/.cargo"
+ENV RUSTUP_HOME="/home/ubuntu/.rustup"
+ENV PATH="$CARGO_HOME/bin:$PATH"
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+RUN echo 'export PATH="/home/ubuntu/.cargo/bin:$PATH"' >> /home/ubuntu/.bashrc
+
+# Install cargo-binstall and Rust based tools
+RUN curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
+RUN cargo binstall -y --force bat
+RUN cargo binstall -y --force lsd
+
+# Bash Config for LSD
+RUN echo 'alias l="lsd -l"' >> /home/ubuntu/.bashrc
+RUN echo 'alias la="lsd -a"' >> /home/ubuntu/.bashrc
+RUN echo 'alias lla="lsd -la"' >> /home/ubuntu/.bashrc
+RUN echo 'alias lt="lsd --tree"' >> /home/ubuntu/.bashrc
 
 ARG USERNAME=ubuntu
 ARG USER_UID=1000
