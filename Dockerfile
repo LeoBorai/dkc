@@ -39,6 +39,9 @@ RUN npm install -g @github/copilot
 # Install UV
 RUN pip install --break-system-packages uv
 
+# Install sqlfluff
+RUN pip install --break-system-packages sqlfluff
+
 # Install Spec-Kit
 RUN uv tool install specify-cli --from git+https://github.com/github/spec-kit.git
 
