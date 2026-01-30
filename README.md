@@ -1,77 +1,75 @@
-# Docker + Claude
+# 🚀 Development-Kit Container
 
-A containerized development environment based on Node.js with modern tooling
-and AI-powered coding assistance.
+A containerized development environment with AI-Assisted Development.
 
 ## Overview
 
-This Dockerfile creates a comprehensive development container that includes Node.js runtime, essential development tools, and AI-powered coding capabilities through Claude Code. It's designed to provide a consistent, portable development environment that works across different machines and platforms.
+This Dockerfile creates a comprehensive development container based on **Ubuntu 26.04** that includes **Node.js** runtime, essential development tools, and AI-powered coding capabilities through **Claude Code**. It's designed to provide a consistent, portable development environment that works across different machines and platforms.
 
 ## Features
 
-### Runtime & Package Managers
-
-- **Node.js 24** (Bookworm Slim base)
-- **npm** (included with Node.js)
-- **Bun** - Fast JavaScript runtime and package manager
-
-### Development Tools
-
-- **git** - Version control
-- **curl** - HTTP client and file transfer
-- **ripgrep** (`rg`) - Ultra-fast text search
-- **fd-find** (`fd`) - Fast file finder
-- **jq** - JSON processor
-- **tree** - Directory structure visualization
-- **bat** - Syntax-highlighted file viewer
-- **htop** - Interactive process monitor
-- **unzip** - Archive extraction
-
-### AI-Powered Development
-
-- **Claude Code** - AI assistant for coding tasks directly from the command line
-
-### Security & Permissions
-
-- Runs as non-root user (`node`) for security
-- Configurable user ID/group ID for file permission compatibility
-- Sudo access configured for the development user
+- **Node.js** and **npm** pre-installed
+- **Claude Code** integration for AI-assisted coding
+- Other essential tools: `git`, `htop`, `jq`, `python3`, and more
+- Support for installation of additional packages with `sudo`
+- Optimized image size with apt cache clean-up
 
 ## Requirements
 
-- Docker or compatible container runtime
-- For Claude Code: Anthropic API key (set via environment variables)
+- **Docker** or compatible container runtime
 
 ## Usage
+
+### Docker Container
+
+Build and run the container:
+
+```bash
+docker build . -t dkc && \
+  docker run -d --name dkc-lab dkc tail -f /dev/null && \
+  docker exec -it dkc-lab bash
+```
+
+> Provide a `name` for easy reference. You can run multiple containers simultaneously for different AI agents.
+
+#### Teardown
+
+To remove the container and image:
+
+```bash
+docker rm -f dkc-lab && docker image rm dkc
+```
+
+> **Warning:** This action cannot be undone.
+
+### Docker Compose
 
 Add the following `docker-compose.dev.yml` to your project:
 
 ```yml
 services:
   claude:
-    image: 'ghcr.io/leoborai/docker-claude:latest'
+    image: 'ghcr.io/leoborai/dkc:latest'
     volumes:
       - ../:/workspaces/dev
-    command: sleep infinity
+    command: tail -f /dev/null # avoid using CPU to keep the container alive
 ```
 
-Then run the Docker Compose file:
+Run the Docker Compose file:
 
 ```bash
 docker compose -f ./dev/docker-compose.dev.yml up --build --detach
 ```
 
-Finally _exec_ into the running container:
+Finally, `exec` into the running container:
 
 ```bash
 docker exec -it <container_id> bash
 ```
 
-Claude will be available as `claude` command in the terminal.
-
 ## Notes
 
-- The container runs as a non-root user for security
-- All development tools are pre-installed and ready to use
-- The image is optimized for size by cleaning apt cache after installation
-- Sudo access is available for installing additional packages if needed
+- The container runs as a non-root user for security.
+- All development tools are pre-installed and ready to use.
+- The image is optimized for size by cleaning the apt cache after installation.
+- Sudo access is available for installing additional packages if needed.
