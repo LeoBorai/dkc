@@ -6,6 +6,7 @@ on:
       - main
   schedule:
     - cron:  '0 0 * * 1' # Every Monday at 00:00
+  workflow_dispatch:
 
 concurrency:
   group: "${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}"
