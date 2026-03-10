@@ -27,8 +27,9 @@ jobs:
 
       - name: Generate Version
         run: |
+          VERSION_DATE="$(TZ=UTC date +'%Y-%m-%d')"
           VERSION_SHA="$(echo ${GITHUB_SHA:0:7})"
-          echo "VERSION=$VERSION_SHA" >> $GITHUB_ENV
+          echo "VERSION=$VERSION_DATE-$VERSION_SHA" >> $GITHUB_ENV
 
       - name: Build Image
         run: |
