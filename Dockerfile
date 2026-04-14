@@ -61,6 +61,9 @@ RUN curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/ca
 RUN cargo binstall -y --force bat
 RUN cargo binstall -y --force lsd
 
+# Install Rust Token Killer
+RUN curl -fsSL https://raw.githubusercontent.com/rtk-ai/rtk/master/install.sh | sh
+
 # Bash Config for LSD
 RUN echo 'alias l="lsd -l"' >> /home/ubuntu/.bashrc
 RUN echo 'alias la="lsd -a"' >> /home/ubuntu/.bashrc
