@@ -1,12 +1,15 @@
-name: Docker Build
+name: Continuous Integration
 
 on:
   pull_request:
     branches:
       - main
+  push:
+    branches:
+      - main
 
 concurrency:
-  group: docker-build-${{ github.event.pull_request.number }}
+  group: ci-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 
 jobs:
