@@ -4,6 +4,10 @@ LABEL org.opencontainers.image.authors="estebanborai@gmail.com"
 LABEL description="Developer-Kit Container"
 LABEL version="1.0"
 
+ENV HOME=/home/ubuntu
+ENV PATH="$HOME/.local/bin:$PATH"
+RUN mkdir -p $HOME/.local/bin
+
 RUN apt-get update && apt-get install -y \
     bat \
     build-essential \
