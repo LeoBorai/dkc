@@ -1,0 +1,31 @@
+name: Docker Build
+
+on:
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: docker-build-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build Docker Image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: false
+          tags: dkc:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
