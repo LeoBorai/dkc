@@ -63,7 +63,7 @@ RUN cargo binstall -y --force lsd
 
 # Install Rust Token Killer
 RUN curl -fsSL https://raw.githubusercontent.com/rtk-ai/rtk/master/install.sh | sh
-ENV PATH="$HOME/.local/bin:$PATH"
+ENV PATH="/home/ubuntu/.local/bin:$PATH"
 RUN rtk --version
 
 # Bash Config for LSD
