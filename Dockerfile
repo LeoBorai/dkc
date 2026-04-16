@@ -37,6 +37,11 @@ RUN npm install -g bun
 # Install Claude Code
 RUN npm install -g @anthropic-ai/claude-code
 
+# Claude Code Plugins
+## Caveman
+RUN claude plugin marketplace add JuliusBrussee/caveman
+RUN claude plugin install caveman@caveman
+
 # Install GitHub Copilot CLI
 RUN npm install -g @github/copilot
 
