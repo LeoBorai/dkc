@@ -1,4 +1,4 @@
-# 🚀 Development-Kit Container
+# 🚀 AI Development-Kit Container (DKC)
 
 A containerized development environment with AI-Assisted Development.
 
@@ -42,7 +42,7 @@ docker rm -f dkc-lab && docker image rm dkc
 
 > **Warning:** This action cannot be undone.
 
-### Docker Compose
+#### Docker Compose
 
 Add the following `docker-compose.dev.yml` to your project:
 
@@ -55,7 +55,7 @@ services:
     command: tail -f /dev/null # avoid using CPU to keep the container alive
 ```
 
-Run the Docker Compose file:
+#### Run the Docker Compose file:
 
 ```bash
 docker compose -f ./dev/docker-compose.dev.yml up --build --detach
@@ -66,6 +66,35 @@ Finally, `exec` into the running container:
 ```bash
 docker exec -it <container_id> bash
 ```
+
+#### Run Docker in the Background (Suitable for ACP)
+
+```bash
+docker run --rm -d -t \
+        --name dkc-claude-acp \
+        -v $(pwd):/app \
+        -w /app \
+        ghcr.io/leoborai/dkc:latest
+```
+
+### Using with ACP
+
+#### Zed
+
+You can use this container along with your Zed Editor by adding an `agent_server`
+as follows to your `settings.json` file:
+
+```json
+  "agent_servers": {
+    "DKC": {
+      "type": "custom",
+      "command": "docker",
+      "args": ["exec", "-i", "dkc-claude-acp", "claude-agent-acp"]
+    },
+  },
+```
+
+> Make sure Claude is authenticated inside the DKC.
 
 ## Notes
 
