@@ -36,6 +36,8 @@ RUN npm install -g bun
 
 # Install Claude Code
 RUN npm install -g @anthropic-ai/claude-code
+RUN npm install -g @anthropic-ai/claude-agent-sdk
+RUN npm install -g @agentclientprotocol/claude-agent-acp
 
 # Claude Code Plugins
 ## Caveman
