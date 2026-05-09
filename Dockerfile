@@ -39,6 +39,9 @@ RUN npm install -g @anthropic-ai/claude-code
 RUN npm install -g @anthropic-ai/claude-agent-sdk
 RUN npm install -g @agentclientprotocol/claude-agent-acp
 
+# Install OpenCode
+RUN npm install -g opencode-ai
+
 # Claude Code Plugins
 ## Caveman
 RUN claude plugin marketplace add JuliusBrussee/caveman

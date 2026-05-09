@@ -4,12 +4,13 @@ A containerized development environment with AI-Assisted Development.
 
 ## Overview
 
-This Dockerfile creates a comprehensive development container based on **Ubuntu 26.04** that includes **Node.js** runtime, essential development tools, and AI-powered coding capabilities through **Claude Code**. It's designed to provide a consistent, portable development environment that works across different machines and platforms.
+This Dockerfile creates a comprehensive development container based on **Ubuntu 26.04** that includes **Node.js** runtime, essential development tools, and AI-powered coding capabilities through **Claude Code** and **OpenCode**. It's designed to provide a consistent, portable development environment that works across different machines and platforms.
 
 ## Features
 
 - **Node.js** and **npm** pre-installed
 - **Claude Code** integration for AI-assisted coding
+- **OpenCode** integration for AI-assisted coding
 - Other essential tools: `git`, `htop`, `jq`, `python3`, and more
 - Support for installation of additional packages with `sudo`
 - Optimized image size with apt cache clean-up
