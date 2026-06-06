@@ -36,8 +36,7 @@ RUN npm install -g bun
 
 # Install Claude Code
 RUN npm install -g @anthropic-ai/claude-code
-RUN npm install -g @anthropic-ai/claude-agent-sdk
-RUN npm install -g @agentclientprotocol/claude-agent-acp
+RUN npm install -g --ignore-scripts @earendil-works/pi-coding-agent
 
 # Install OpenCode
 RUN npm install -g opencode-ai
@@ -46,9 +45,6 @@ RUN npm install -g opencode-ai
 ## Caveman
 RUN claude plugin marketplace add JuliusBrussee/caveman
 RUN claude plugin install caveman@caveman
-
-# Install GitHub Copilot CLI
-RUN npm install -g @github/copilot
 
 # Install UV
 RUN pip install --break-system-packages uv
