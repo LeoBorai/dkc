@@ -25,7 +25,6 @@ RUN apt-get update && apt-get install -y \
     sudo \
     tree \
     unzip \
-    zsh \
     && rm -rf "/var/lib/apt/lists/*"
 
 # Update Packages
@@ -38,9 +37,6 @@ RUN npm install -g bun
 RUN npm install -g @anthropic-ai/claude-code
 RUN npm install -g --ignore-scripts @earendil-works/pi-coding-agent
 
-# Install OpenCode
-RUN npm install -g opencode-ai
-
 # Claude Code Plugins
 ## Caveman
 RUN claude plugin marketplace add JuliusBrussee/caveman
@@ -49,15 +45,12 @@ RUN claude plugin install caveman@caveman
 # Install UV
 RUN pip install --break-system-packages uv
 
-# Install sqlfluff
-RUN pip install --break-system-packages sqlfluff
-
-# Install Spec-Kit
-RUN uv tool install specify-cli --from git+https://github.com/github/spec-kit.git
-
 # Install Starship
 RUN curl -sS https://starship.rs/install.sh | sh -s -- --yes
 RUN echo 'eval "$(/usr/local/bin/starship init bash)"' >> /home/ubuntu/.bashrc
+
+# Install herdr
+RUN curl -fsSL https://herdr.dev/install.sh | sh
 
 # Install Rust
 ENV CARGO_HOME="/home/ubuntu/.cargo"
@@ -66,23 +59,12 @@ ENV PATH="$CARGO_HOME/bin:$PATH"
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 RUN echo 'export PATH="/home/ubuntu/.cargo/bin:$PATH"' >> /home/ubuntu/.bashrc
 
-# Install cargo-binstall and Rust based tools
-RUN curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
-RUN cargo binstall -y --force bat
-RUN cargo binstall -y --force lsd
-
 # Install Rust Token Killer
 RUN curl -fsSL https://raw.githubusercontent.com/rtk-ai/rtk/master/install.sh | sh
 ENV PATH="/home/ubuntu/.local/bin:$PATH"
 ENV RTK_TELEMETRY_DISABLED=1
 RUN rtk --version
 RUN timeout 10 rtk init -g --hook-only --auto-patch 2>/dev/null || true
-
-# Bash Config for LSD
-RUN echo 'alias l="lsd -l"' >> /home/ubuntu/.bashrc
-RUN echo 'alias la="lsd -a"' >> /home/ubuntu/.bashrc
-RUN echo 'alias lla="lsd -la"' >> /home/ubuntu/.bashrc
-RUN echo 'alias lt="lsd --tree"' >> /home/ubuntu/.bashrc
 
 ARG USERNAME=ubuntu
 ARG USER_UID=1000
