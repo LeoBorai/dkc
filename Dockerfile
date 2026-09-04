@@ -66,6 +66,9 @@ ENV RTK_TELEMETRY_DISABLED=1
 RUN rtk --version
 RUN timeout 10 rtk init -g --hook-only --auto-patch 2>/dev/null || true
 
+# Install OpenSpec
+RUN npm install -g @fission-ai/openspec@latest
+
 ARG USERNAME=ubuntu
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
