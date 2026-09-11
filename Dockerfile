@@ -30,9 +30,6 @@ RUN apt-get update && apt-get install -y \
 # Update Packages
 RUN apt-get update
 
-# Install Bun.sh
-RUN npm install -g bun
-
 # Install Claude Code
 RUN npm install -g @anthropic-ai/claude-code
 RUN npm install -g --ignore-scripts @earendil-works/pi-coding-agent
@@ -44,10 +41,6 @@ RUN claude plugin install caveman@caveman
 
 # Install UV
 RUN pip install --break-system-packages uv
-
-# Install Starship
-RUN curl -sS https://starship.rs/install.sh | sh -s -- --yes
-RUN echo 'eval "$(/usr/local/bin/starship init bash)"' >> /home/ubuntu/.bashrc
 
 # Install herdr
 RUN curl -fsSL https://herdr.dev/install.sh | sh
