@@ -1,4 +1,4 @@
-FROM ubuntu:26.04
+FROM ubuntu:26.10
 
 LABEL org.opencontainers.image.authors="estebanborai@gmail.com"
 LABEL description="Developer-Kit Container"
